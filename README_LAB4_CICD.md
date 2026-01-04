@@ -25,7 +25,8 @@ git push -u origin main
 
 **Screenshot :**
 
-[Ajouter ici le screenshot de la création du dépôt GitHub]
+<img width="1881" height="768" alt="image" src="https://github.com/user-attachments/assets/80e86cc1-a942-4f54-ab4f-903152b1e43f" />
+
 
 ---
 
@@ -58,11 +59,13 @@ env:
 
 **Screenshot (Configuration) :**
 
-[Ajouter ici le screenshot de la page Secrets and variables]
+<img width="956" height="612" alt="image" src="https://github.com/user-attachments/assets/33c5e4f8-4be8-494a-938a-502a7fb5040c" />
 
 **Screenshot (Secrets créés) :**
 
-[Ajouter ici le screenshot des secrets créés]
+
+
+<img width="997" height="475" alt="image" src="https://github.com/user-attachments/assets/35606e98-8dea-4197-979c-0c141e28c0de" />
 
 ---
 
@@ -156,7 +159,8 @@ jobs:
 
 **Screenshot :**
 
-[Ajouter ici le screenshot du workflow CI/CD créé]
+<img width="375" height="66" alt="image" src="https://github.com/user-attachments/assets/2fdf813d-c643-41ba-ab1d-8d652bbf4f99" />
+
 
 ---
 
@@ -179,6 +183,9 @@ git push origin main
 2. Cliquez sur le workflow en cours d'exécution
 3. Consultez les logs de chaque job
 
+<img width="1372" height="551" alt="image" src="https://github.com/user-attachments/assets/a62c99fb-ba65-4b51-bcbb-a907ffb165ad" />
+
+
 **Éléments à vérifier :**
 
 ### ✅ Job `ci` (Continuous Integration)
@@ -189,7 +196,8 @@ git push origin main
 
 **Screenshot (Job CI) :**
 
-[Ajouter ici le screenshot de l'exécution du job CI]
+<img width="1849" height="851" alt="image" src="https://github.com/user-attachments/assets/51818db3-d9c3-4f25-b482-8dcc0e1fb3c7" />
+
 
 ### ✅ Job `cd` (Continuous Deployment)
 - Téléchargement des artefacts
@@ -199,7 +207,8 @@ git push origin main
 
 **Screenshot (Job CD) :**
 
-[Ajouter ici le screenshot de l'exécution du job CD]
+<img width="1915" height="657" alt="image" src="https://github.com/user-attachments/assets/edc5bc3e-8e2d-4476-a402-c9e4fe66d54b" />
+
 
 ### 📦 Artefacts produits
 Les artefacts suivants sont générés pendant l'exécution :
@@ -208,7 +217,8 @@ Les artefacts suivants sont générés pendant l'exécution :
 
 **Screenshot (Artefacts) :**
 
-[Ajouter ici le screenshot des artefacts téléchargeables]
+<img width="1430" height="245" alt="image" src="https://github.com/user-attachments/assets/94058ed0-2bec-4e8b-8935-967ace7d595c" />
+
 
 ---
 
