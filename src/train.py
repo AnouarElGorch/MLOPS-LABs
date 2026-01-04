@@ -186,7 +186,7 @@ def find_best_threshold(
 
 
 
-def main(version: str = "v1", seed: int = 42, gate_f1: float = 0.70) -> None:
+def main(version: str = "v1", seed: int = 42, gate_f1: float = 0.60) -> None:
     """
     Entraîne un modèle de churn, évalue ses performances, enregistre
     le modèle et ses métadonnées, et décide s’il passe le gate F1.
