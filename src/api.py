@@ -22,7 +22,9 @@ d’inférence léger.
 
 
 import json
+import logging
 import time
+import uuid
 from pathlib import Path
 from typing import Any, Optional
 
@@ -43,6 +45,14 @@ MODELS_DIR: Path = ROOT / "models"
 REGISTRY_DIR: Path = ROOT / "registry"
 CURRENT_MODEL_PATH: Path = REGISTRY_DIR / "current_model.txt"
 LOG_PATH: Path = ROOT / "logs" / "predictions.log"
+
+
+# Configuration du logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - [%(request_id)s] - %(message)s"
+)
+logger = logging.getLogger(__name__)
 
 
 # ---------------------------------------------------------------------------
@@ -261,9 +271,18 @@ def predict(req: PredictRequest) -> dict[str, Any]:
         - 500 si le modèle ne peut pas être chargé,
         - 400 si une erreur survient lors de la prédiction.
     """
+    # Générer ou récupérer le request_id
+    request_id = req.request_id or str(uuid.uuid4())
+    
+    # Configurer un logger avec le request_id en extra
+    request_logger = logging.LoggerAdapter(logger, {"request_id": request_id})
+    request_logger.info("Nouvelle requête de prédiction reçue")
+    request_logger.debug(f"Features reçues : tenure={req.tenure_months}, complaints={req.num_complaints}, session={req.avg_session_minutes}m, plan={req.plan_type}, region={req.region}")
+    
     try:
         model_name, model = load_model_if_needed()
     except Exception as exc:
+        request_logger.error(f"Erreur lors du chargement du modèle : {exc}")
         raise HTTPException(status_code=500, detail=str(exc)) from exc
 
 
@@ -285,6 +304,7 @@ def predict(req: PredictRequest) -> dict[str, Any]:
         proba = float(model.predict_proba(X_df)[0][1])
         pred = int(proba >= 0.5)  # seuil fixe 0.5 (peut être tuné)
     except Exception as exc:
+        request_logger.error(f"Erreur de prédiction : {exc}")
         raise HTTPException(
             status_code=400,
             detail=f"Erreur de prédiction : {exc}",
@@ -293,7 +313,7 @@ def predict(req: PredictRequest) -> dict[str, Any]:
 
 
     out: dict[str, Any] = {
-        "request_id": req.request_id,
+        "request_id": request_id,
         "model_version": model_name,
         "prediction": pred,
         "probability": round(proba, 6),
@@ -304,4 +324,5 @@ def predict(req: PredictRequest) -> dict[str, Any]:
 
 
     log_prediction(out)
+    request_logger.info(f"Prédiction complétée : pred={pred}, proba={out['probability']}, latency={latency_ms:.3f}ms")
     return out
