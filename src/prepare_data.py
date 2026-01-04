@@ -274,8 +274,8 @@ def main() -> None:
 
     print(f"[OK] Fichier prétraité généré : {PROCESSED_PATH}")
     print(f"[OK] Statistiques d'entraînement générées : {TRAIN_STATS_PATH}")
-
-
+    print("HElloo")
+    print("cheeck")
 
 
 if __name__ == "__main__":
