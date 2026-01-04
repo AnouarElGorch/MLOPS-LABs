@@ -325,4 +325,5 @@ def predict(req: PredictRequest) -> dict[str, Any]:
 
     log_prediction(out)
     request_logger.info(f"Prédiction complétée : pred={pred}, proba={out['probability']}, latency={latency_ms:.3f}ms")
-    return out
+    return out#   B A D   C H A N G E  
+ 
