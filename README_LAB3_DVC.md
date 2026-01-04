@@ -12,8 +12,9 @@ Commandes typiques :
 pip install dvc
 dvc init
 ```
+<img width="1016" height="100" alt="image" src="https://github.com/user-attachments/assets/fd9d0ba2-8cc1-46d1-a3c7-e6a25383f41b" />
+<img width="782" height="392" alt="image" src="https://github.com/user-attachments/assets/6c3ffd36-227e-4560-8e5f-77cabfbef4d3" />
 
-![Capture d'écran Étape 1 : Initialisation](placeholder_screen_1.png)
 
 ---
 
@@ -21,6 +22,7 @@ dvc init
 
 **Description :**
 Une fois DVC initialisé, nous ajoutons nos données brutes (par exemple, `data/raw.csv`) au suivi de DVC. Cela crée un fichier `.dvc` (ex: `raw.csv.dvc`) qui sert de pointeur vers les données réelles, tandis que le fichier de données lui-même est ajouté au `.gitignore`.
+<img width="266" height="208" alt="image" src="https://github.com/user-attachments/assets/f32dab01-7c0d-4436-a1c9-0adf11fead53" />
 
 Commandes typiques :
 ```bash
@@ -28,8 +30,11 @@ dvc add data/raw.csv
 git add data/raw.csv.dvc data/.gitignore
 git commit -m "Add raw data"
 ```
+<img width="1018" height="244" alt="image" src="https://github.com/user-attachments/assets/2245a68a-8ce0-4288-87af-2e3d851bdf22" />
+<img width="386" height="136" alt="image" src="https://github.com/user-attachments/assets/8a923b82-d670-4b53-b418-fef45924d67b" />
 
-![Capture d'écran Étape 2 : Versionner les données](placeholder_screen_2.png)
+<img width="1001" height="197" alt="image" src="https://github.com/user-attachments/assets/927d6e49-05bf-4c2e-8723-353f64bd2904" />
+
 
 ---
 
@@ -46,7 +51,9 @@ git add .dvc/config
 git commit -m "Configure local remote"
 ```
 
-![Capture d'écran Étape 3 : Configuration remote](placeholder_screen_3.png)
+<img width="946" height="311" alt="image" src="https://github.com/user-attachments/assets/0598e203-8420-4f14-aa19-300b77e4fdc8" />
+<img width="1003" height="132" alt="image" src="https://github.com/user-attachments/assets/3ae638bf-62aa-4a43-9157-0e0e7f25b1c7" />
+
 
 ---
 
@@ -59,8 +66,9 @@ Commandes typiques :
 ```bash
 dvc push
 ```
+<img width="978" height="94" alt="image" src="https://github.com/user-attachments/assets/ff5ce107-f085-445a-9ba6-29655a49e19e" />
+<img width="1114" height="546" alt="image" src="https://github.com/user-attachments/assets/8606b6a8-c88a-4322-8b0a-472f410e6c6c" />
 
-![Capture d'écran Étape 4 : Push des données](placeholder_screen_4.png)
 
 ---
 
@@ -69,14 +77,21 @@ dvc push
 **Description :**
 Pour vérifier que le versionnement fonctionne, nous simulons une collaboration en supprimant les données locales (`data/raw.csv` et le cache). Ensuite, nous utilisons `dvc pull` pour récupérer les données depuis le remote, prouvant ainsi la reproductibilité de l'environnement.
 
+
+<img width="723" height="275" alt="image" src="https://github.com/user-attachments/assets/cd3183a7-0783-4d3f-b48b-64b79424074f" />
+
+
 Commandes typiques :
 ```bash
 rm data/raw.csv
 rm -rf .dvc/cache
 dvc pull
 ```
+<img width="996" height="182" alt="image" src="https://github.com/user-attachments/assets/28fddf69-9315-4753-a681-5e1c4535480a" />
 
-![Capture d'écran Étape 5 : Simulation collaboration](placeholder_screen_5.png)
+<img width="581" height="165" alt="image" src="https://github.com/user-attachments/assets/513fbb64-b318-4b76-ac4a-b4d40026d97c" />
+
+
 
 ---
 
@@ -101,7 +116,8 @@ stages:
     deps: ...
 ```
 
-![Capture d'écran Étape 6 : Pipeline dvc.yaml](placeholder_screen_6.png)
+<img width="499" height="615" alt="image" src="https://github.com/user-attachments/assets/5972d453-0378-41a2-884d-11a7e99c024d" />
+<img width="993" height="224" alt="image" src="https://github.com/user-attachments/assets/b4576b7d-fa23-43af-a7fa-ffafbe3b51bd" />
 
 ---
 
@@ -114,5 +130,7 @@ Commandes typiques :
 ```bash
 dvc repro
 ```
+<img width="1002" height="376" alt="image" src="https://github.com/user-attachments/assets/6087e514-e034-4533-91c7-3567b2e90052" />
+<img width="959" height="163" alt="image" src="https://github.com/user-attachments/assets/c243db31-271b-4dbc-84f0-f009730c9971" />
 
-![Capture d'écran Étape 7 : Reproduire le pipeline](placeholder_screen_7.png)
+
