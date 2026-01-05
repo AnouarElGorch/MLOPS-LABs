@@ -16,7 +16,8 @@ docker --version
 docker ps
 ```
 
-![image.png](attachment:1211d5a0-4ccb-4c39-b824-82502ba4370e:image.png)
+<img width="875" height="159" alt="image" src="https://github.com/user-attachments/assets/8e423772-887d-4f47-b657-721622e41104" />
+
 
 ---
 
@@ -29,7 +30,8 @@ Instructions :
 docker run -d -p 8080:80 --name demo-nginx nginx
 ```
 
-![image.png](attachment:efd20580-1fef-4163-a0cd-b9a802f624f4:image.png)
+<img width="987" height="326" alt="image" src="https://github.com/user-attachments/assets/b1ad7ddd-0ac8-4e6b-88f8-745993b8fe40" />
+
 
 - Ouvrez un navigateur et accédez à :
 
@@ -37,7 +39,8 @@ docker run -d -p 8080:80 --name demo-nginx nginx
 http://localhost:8080
 ```
 
-![image.png](attachment:d6e2d566-f19d-47fd-8180-63595e518798:image.png)
+<img width="1138" height="432" alt="image" src="https://github.com/user-attachments/assets/d1d22e9e-44b4-4c70-8a51-9c54fa77f603" />
+
 
 - Vérifiez que la page par défaut de Nginx s’affiche.
 - Listez les conteneurs en cours d’exécution :
@@ -46,7 +49,8 @@ http://localhost:8080
 docker ps
 ```
 
-![image.png](attachment:241ae74b-3cc6-4a25-b857-259a65870fc1:image.png)
+<img width="1458" height="136" alt="image" src="https://github.com/user-attachments/assets/55272d5d-05ed-452f-8718-3dbb0afabe6d" />
+
 
 - Arrêtez puis supprimez le conteneur :
 
@@ -55,7 +59,8 @@ docker stop demo-nginx
 docker rm demo-nginx
 ```
 
-![image.png](attachment:e34df6e6-8c13-412a-991b-4c9801620485:image.png)
+<img width="514" height="113" alt="image" src="https://github.com/user-attachments/assets/63350b8e-f44a-47ca-a6fd-a15e133a2e4a" />
+
 
 ---
 
@@ -68,7 +73,8 @@ Instructions :
 docker run -it --name demo-ubuntu ubuntu bash
 ```
 
-![image.png](attachment:2c8c47c8-dfed-4c74-a934-0a3640df50dd:image.png)
+<img width="976" height="165" alt="image" src="https://github.com/user-attachments/assets/912c68a2-0aea-42a8-96d6-0cc89a311d9d" />
+
 
 - Dans le shell à l’intérieur du conteneur, exécutez quelques commandes :
 
@@ -78,7 +84,8 @@ cat /etc/os-release
 pwd
 ```
 
-![image.png](attachment:6416ea8f-bccd-49f0-950c-8f8afb2e6191:image.png)
+<img width="1234" height="449" alt="image" src="https://github.com/user-attachments/assets/4b415da2-91a8-43f3-bf7a-075ca8adf949" />
+
 
 - Installez un paquet (exemple) :
 
@@ -87,7 +94,8 @@ apt-get update
 apt-get install -y curl
 ```
 
-![image.png](attachment:79851f81-cc64-44a9-871c-729b0b7cd989:image.png)
+<img width="1285" height="644" alt="image" src="https://github.com/user-attachments/assets/113afc25-55f6-4c57-b505-bf0673d7a016" />
+
 
 - Quittez le shell :
 
@@ -95,7 +103,8 @@ apt-get install -y curl
 exit
 ```
 
-![image.png](attachment:a5c75f80-9459-46b7-9d72-705eaaa9b9ca:image.png)
+<img width="361" height="82" alt="image" src="https://github.com/user-attachments/assets/86731208-5e51-40be-8c63-b8d27cc54f7b" />
+
 
 - Vérifiez que le conteneur existe toujours mais est arrêté :
 
@@ -103,7 +112,8 @@ exit
 docker ps -a
 ```
 
-![image.png](attachment:7dcf006c-37d2-4170-bcba-ccbf2470d317:image.png)
+<img width="1213" height="97" alt="image" src="https://github.com/user-attachments/assets/b15fa43f-b23e-4323-8388-b86ea763ae9c" />
+
 
 - Supprimez ce conteneur :
 
@@ -111,7 +121,8 @@ docker ps -a
 docker rm demo-ubuntu
 ```
 
-![image.png](attachment:f754a5d2-933f-4f13-b66f-a0f313b8096e:image.png)
+<img width="509" height="78" alt="image" src="https://github.com/user-attachments/assets/128d2da4-eb83-407c-809f-ddf266c7536d" />
+
 
 ---
 
@@ -126,7 +137,8 @@ docker run [options] image [commande] [arguments]
 
 - Lancez de nouveau Nginx avec des options clairement visibles :
 
-![image.png](attachment:563b2a9f-1948-4ece-b3e9-75fa77e44d66:image.png)
+<img width="847" height="79" alt="image" src="https://github.com/user-attachments/assets/6ef0ef12-9fdc-4c43-b367-7387ac6521b5" />
+
 
 - Identifiez le rôle de chaque élément :
   - `-d` : détaché (arrière-plan)
@@ -135,7 +147,8 @@ docker run [options] image [commande] [arguments]
   - `nginx` : image utilisée
 - Arrêtez et supprimez encore une fois le conteneur :
 
-![image.png](attachment:98e482e4-35c2-457c-9fb5-ac03c8d9b400:image.png)
+<img width="506" height="123" alt="image" src="https://github.com/user-attachments/assets/1c176394-c0bd-4a26-82d2-bed7f1db1058" />
+
 
 ---
 
@@ -152,12 +165,14 @@ mlops-lab-01/
  └── src/
 ```
 
-![image.png](attachment:abe785b6-6c0d-4b8c-8afd-28f788ada93b:image.png)
+<img width="506" height="123" alt="image" src="https://github.com/user-attachments/assets/29a3eff6-5aab-40be-b3f6-06987415e066" />
+
 
 - Vérifiez que l’API fonctionne encore en local (optionnel mais recommandé) :
 
-![image.png](attachment:a5ec6830-87c5-4817-816a-d1a9125edb55:image.png)
-![image.png](attachment:0a20f2fb-c444-482a-a552-b068c5b95980:image.png)
+<img width="675" height="180" alt="image" src="https://github.com/user-attachments/assets/fe8f9f0a-b62f-49b4-82dc-47bafa447b8e" />
+
+<img width="736" height="48" alt="image" src="https://github.com/user-attachments/assets/0c1abac3-f4fb-419a-b27b-020ef64ea20c" />
 
 ---
 
@@ -179,7 +194,8 @@ joblib
 
 3. Enregistrez le fichier. Remarque : ajoutez vos libs supplémentaires si besoin (`python-dotenv`, `loguru`, etc.).
 
-![image.png](attachment:d60975c9-6db1-4846-a19f-2501627fd678:image.png)
+<img width="386" height="309" alt="image" src="https://github.com/user-attachments/assets/f51a454b-0020-44e1-9fa8-92bdeb0c81da" />
+
 
 ---
 
@@ -189,7 +205,8 @@ Instructions :
 1. Dans le dossier `mlops-lab-01`, créez un fichier nommé `Dockerfile`.
 2. Collez le contenu attendu (voir capture) puis sauvegardez.
 
-![image.png](attachment:f8d04c0d-0b79-4172-aac9-b6dc19a9ea5d:image.png)
+<img width="794" height="510" alt="image" src="https://github.com/user-attachments/assets/725185a2-288b-46fd-acc2-32b6473fe383" />
+
 
 ---
 
@@ -198,15 +215,18 @@ Instructions :
 Instructions :
 1. Assurez-vous qu’un modèle entraîné existe déjà dans `models/` :
 
-![image.png](attachment:4d73ddee-794e-42ce-90f4-4b8e655d0cb8:image.png)
+<img width="809" height="334" alt="image" src="https://github.com/user-attachments/assets/56394120-bcfd-41ce-a2a7-8318fea4ac26" />
+
 
 2. Assurez-vous que `registry/current_model.txt` contient le nom du modèle actif :
 
-![image.png](attachment:3f722c49-925b-4db9-afe6-eda71e00cafc:image.png)
+<img width="596" height="114" alt="image" src="https://github.com/user-attachments/assets/1bb2e4fd-e505-4711-9dbd-da5be6317acb" />
+
 
 3. Vérifiez à nouveau le contenu du répertoire `models/` :
 
-![image.png](attachment:77f15d52-3e55-415c-a8ec-8e43ce8fe7fd:image.png)
+<img width="907" height="101" alt="image" src="https://github.com/user-attachments/assets/02939b9a-15d1-4e9c-a175-f49aa9dd4cda" />
+
 
 ---
 
@@ -215,11 +235,13 @@ Instructions :
 Instructions :
 1. Dans `mlops-lab-01`, construisez l’image :
 
-![image.png](attachment:bd847fce-1307-4427-b865-a19e7ad199a8:image.png)
+<img width="1374" height="697" alt="image" src="https://github.com/user-attachments/assets/f2d44862-46aa-47aa-a857-4f1249fbc030" />
+
 
 2. Vérifiez la présence de l’image (`churn-api` dans REPOSITORY) :
 
-![image.png](attachment:0f4dc189-8802-45a5-a457-9d2786fea8d1:image.png)
+<img width="688" height="169" alt="image" src="https://github.com/user-attachments/assets/7588d015-45ec-4f9f-b56c-5b55f0e86eca" />
+
 
 ---
 
@@ -228,16 +250,17 @@ Instructions :
 Instructions :
 1. Lancez un conteneur basé sur l’image et vérifiez qu’il tourne :
 
-![image.png](attachment:b7ca5e24-b519-48fb-9b9f-fa8597ca6a4d:image.png)
+<img width="1377" height="160" alt="image" src="https://github.com/user-attachments/assets/edceccf6-833e-4de8-b792-b50a9ab47985" />
+
 
 2. Testez le endpoint `/health` (curl, Postman, navigateur) :
 
-![image.png](attachment:73476f5c-5e2d-4f4a-acec-e715be04276f:image.png)
-![image.png](attachment:5b554cb4-e803-4478-a09e-a88393873083:image.png)
+<img width="1081" height="480" alt="image" src="https://github.com/user-attachments/assets/8c6debd1-cb50-486e-8a74-ea255ea39845" />
+
 
 3. Testez une requête POST `/predict` avec un JSON du lab (tenure, complaints, etc.) :
 
-![image.png](attachment:9ef3f0b7-e0dd-467d-b76e-3189a2bb95ee:image.png)
+<img width="1443" height="832" alt="image" src="https://github.com/user-attachments/assets/f584da1b-bac3-4b82-9d7a-6b9747edee94" />
 
 > Si vous rencontrez un problème de version scikit-learn 1.8 non compatible avec Python 3.10, modifiez l’image vers Python 3.11 dans le Dockerfile.
 
@@ -248,43 +271,52 @@ Instructions :
 Instructions :
 1. Listez les fichiers dans le conteneur :
 
-![image.png](attachment:a869edd5-11fe-42e6-b54f-fcb49d47e00b:image.png)
+<img width="972" height="220" alt="image" src="https://github.com/user-attachments/assets/656102b8-db72-42cc-bc33-57e6cf02dc84" />
+
 
 2. Vérifiez que l’application écrit des logs à l’exécution :
 
-![image.png](attachment:d40af29f-9aae-4379-9d1b-f810f6ea06a5:image.png)
+<img width="933" height="49" alt="image" src="https://github.com/user-attachments/assets/4e849cdb-8937-428a-8e20-6a4028d6e233" />
+
 
 3. Affichez quelques lignes du fichier de logs des prédictions :
 
-![image.png](attachment:8fe98262-4516-4707-92e1-fc2ac68f0b60:image.png)
+<img width="1006" height="363" alt="image" src="https://github.com/user-attachments/assets/200e1ccb-0e72-4e92-bfeb-95fee84a57ef" />
+
 
 4. Arrêtez et supprimez le conteneur après test :
 
-![image.png](attachment:73716706-a31d-4a49-954c-d05d2e77ea30:image.png)
+<img width="820" height="128" alt="image" src="https://github.com/user-attachments/assets/06e88f55-3f16-48eb-a0f9-0abd66a51cdd" />
+
 
 ---
 
 ## Étape 12 : Orchestration locale avec Docker Compose
 
-![image.png](attachment:e2327b91-df2a-4e8e-beff-9a52368de922:image.png)
+<img width="720" height="472" alt="image" src="https://github.com/user-attachments/assets/16f9e352-68e1-4935-9433-db9b7ec4e4ac" />
+
 
 ---
 
 ## Étape 13 : Démarrer l’API via Docker Compose
 
-![image.png](attachment:be3c320d-9c28-42e6-a955-2278ab66ec1c:image.png)
+<img width="998" height="272" alt="image" src="https://github.com/user-attachments/assets/f109c1be-b043-4728-a4c8-46a70586933d" />
+
 
 - Test GET :
 
-![image.png](attachment:5c83ea28-09c0-49af-9d90-4015205820af:image.png)
+<img width="956" height="429" alt="image" src="https://github.com/user-attachments/assets/3d8ad4cc-0353-48d1-906e-1c73846215fe" />
+
 
 - Test POST :
 
-![image.png](attachment:7c8baa2f-c742-4eb2-96cb-e0a2d819eb52:image.png)
+<img width="931" height="827" alt="image" src="https://github.com/user-attachments/assets/87e1c961-088a-4c45-808f-057f3bd2f78e" />
+
 
 - Arrêt :
 
-![image.png](attachment:8964a703-8f8b-41de-935e-6c93afe53f62:image.png)
+<img width="992" height="189" alt="image" src="https://github.com/user-attachments/assets/35e5f976-a832-4be7-bfed-490456f9a0b7" />
+
 
 ---
 
@@ -293,21 +325,27 @@ Instructions :
 Instructions :
 - Lancez les services en mode détaché.
 
-![image.png](attachment:c3849690-000c-4cea-9afe-6426aaf7c371:image.png)
+<img width="982" height="137" alt="image" src="https://github.com/user-attachments/assets/37483010-b4e4-4d07-a2a6-fce357aa1e42" />
+
 
 - Vérifiez les conteneurs en cours d’exécution :
 
-![image.png](attachment:2e11b151-8312-4652-b8eb-f2e53c6a12df:image.png)
+<img width="979" height="149" alt="image" src="https://github.com/user-attachments/assets/567725d4-be3e-468b-91fd-1fde933b0277" />
+
 
 - Affichez les logs du service :
 
-![image.png](attachment:e8333428-e05a-435e-b6e8-3d61eaedcb56:image.png)
+<img width="986" height="493" alt="image" src="https://github.com/user-attachments/assets/72d61c15-1848-4bac-972d-deee72b9eac5" />
+
 
 - Testez `/health` et `/predict` pendant que les logs défilent. Arrêtez les services :
 
-![image.png](attachment:3d578212-8581-4cc2-98f6-ea83b1d68195:image.png)
-![image.png](attachment:20e03b7d-fceb-4839-8af8-ebf3a6b6d805:image.png)
-![image.png](attachment:57ba35ad-fc2e-4c0d-b922-82837b7019b4:image.png)
+<img width="779" height="788" alt="image" src="https://github.com/user-attachments/assets/b2e6109e-97ca-4b64-8cd0-4f18efc4da92" />
+
+<img width="659" height="314" alt="image" src="https://github.com/user-attachments/assets/aba7d4be-3e32-4e31-b018-a16befc2b9d6" />
+
+<img width="993" height="182" alt="image" src="https://github.com/user-attachments/assets/9ef06048-a352-4dd1-84e6-855843f35706" />
+
 
 ---
 
@@ -318,7 +356,8 @@ Assurez-vous que :
 - les données et modèles lourds sont suivis par DVC (lab DVC),
 - l’API est conteneurisée via Docker (lab Docker).
 
-![image.png](attachment:2cd92dfb-48e9-42b2-aefb-cdeb414970b2:image.png)
+<img width="990" height="195" alt="image" src="https://github.com/user-attachments/assets/54ab1050-fbb4-4d35-bbca-a2a0de4c5d20" />
+
 
 Notez dans votre cours :
 - MLOps local : pipeline + API + monitoring
