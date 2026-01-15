@@ -34,6 +34,10 @@ import pandas as pd
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
+import mlflow
+import mlflow.sklearn
+from mlflow.tracking import MlflowClient
+
 
 # ---------------------------------------------------------------------------
 # Constantes de chemin
@@ -45,6 +49,12 @@ MODELS_DIR: Path = ROOT / "models"
 REGISTRY_DIR: Path = ROOT / "registry"
 CURRENT_MODEL_PATH: Path = REGISTRY_DIR / "current_model.txt"
 LOG_PATH: Path = ROOT / "logs" / "predictions.log"
+
+# Constantes MLflow
+MLFLOW_TRACKING_URI = "http://127.0.0.1:5000"
+MODEL_NAME = "churn_model"
+ALIAS = "production"
+MODEL_URI = f"models:/{MODEL_NAME}@{ALIAS}"
 
 
 # Configuration du logging
@@ -113,40 +123,30 @@ _model_cache: dict[str, Any] = {"name": None, "model": None}
 
 def get_current_model_name() -> str:
     """
-    Lit le nom du modèle courant dans le fichier de registry.
+    Récupère le nom et la version du modèle courant depuis MLflow Model Registry.
 
 
     Retour
     ------
     str
-        Nom du fichier modèle (ex. "churn_model_v1_20251210_120000.joblib").
+        Alias et version du modèle (ex. "churn_model@production (v2)").
 
 
     Exceptions
     ----------
     FileNotFoundError
-        Si le fichier n'existe pas ou est vide.
+        Si le modèle ou l'alias n'existe pas dans MLflow.
     """
-    if not CURRENT_MODEL_PATH.exists():
-        raise FileNotFoundError(
-            "Aucun modèle courant. Lancer train.py (avec gate) d'abord."
-        )
-
-
-    name = CURRENT_MODEL_PATH.read_text(encoding="utf-8").strip()
-    if not name:
-        raise FileNotFoundError(
-            "Fichier current_model.txt vide. Aucun modèle activé."
-        )
-
-
-    return name
+    mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
+    client = MlflowClient()
+    mv = client.get_model_version_by_alias(MODEL_NAME, ALIAS)
+    return f"{MODEL_NAME}@{ALIAS} (v{mv.version})"
 
 
 
 def load_model_if_needed() -> tuple[str, Any]:
     """
-    Charge le modèle courant en mémoire si nécessaire.
+    Charge le modèle courant depuis MLflow Model Registry en mémoire si nécessaire.
 
 
     Utilise un cache simple en mémoire (_model_cache) pour éviter
@@ -156,34 +156,27 @@ def load_model_if_needed() -> tuple[str, Any]:
     Retour
     ------
     (str, Any)
-        Tuple (nom_du_modèle, objet_modèle_scikit_learn).
+        Tuple (alias_et_version, objet_modèle_scikit_learn).
 
 
     Exceptions
     ----------
     FileNotFoundError
-        Si le modèle indiqué dans le registry n'existe pas sur disque.
+        Si le modèle n'existe pas dans MLflow.
     """
-    name = get_current_model_name()
+    mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
 
+    # Cache key = model URI (alias), not local filename
+    cache_key = MODEL_URI
 
-    # Si le modèle courant est déjà en cache, on le réutilise.
-    if _model_cache["name"] == name and _model_cache["model"] is not None:
-        return name, _model_cache["model"]
+    if _model_cache["name"] == cache_key and _model_cache["model"] is not None:
+        return cache_key, _model_cache["model"]
 
+    model = mlflow.sklearn.load_model(MODEL_URI)
 
-    # Sinon, chargement depuis le disque
-    path = MODELS_DIR / name
-    if not path.exists():
-        raise FileNotFoundError(f"Modèle introuvable sur disque : {path}")
-
-
-    model = joblib.load(path)
-    _model_cache["name"] = name
+    _model_cache["name"] = cache_key
     _model_cache["model"] = model
-
-
-    return name, model
+    return cache_key, model
 
 
 
@@ -236,6 +229,56 @@ def health() -> dict[str, Any]:
         return {"status": "ok", "current_model": model_name}
     except Exception as exc:  # pragma: no cover - simple endpoint de debug
         return {"status": "error", "detail": str(exc)}
+
+
+
+@app.get("/startup")
+def startup() -> dict[str, Any]:
+    """
+    Endpoint utilisé par Kubernetes startupProbe.
+
+    L'application est considérée comme démarrée UNIQUEMENT si :
+    - le registry existe,
+    - le fichier current_model.txt existe,
+    - le fichier n'est pas vide.
+    """
+    if not REGISTRY_DIR.exists():
+        raise HTTPException(
+            status_code=503,
+            detail="Registry non monté (PVC absent ou incorrect).",
+        )
+
+    if not CURRENT_MODEL_PATH.exists():
+        raise HTTPException(
+            status_code=503,
+            detail="Aucun modèle courant. Lancer train.py (avec gate) d'abord.",
+        )
+
+    name = CURRENT_MODEL_PATH.read_text(encoding="utf-8").strip()
+    if not name:
+        raise HTTPException(
+            status_code=503,
+            detail="current_model.txt vide.",
+        )
+
+    return {
+        "status": "ok",
+        "current_model": name,
+    }
+
+
+@app.get("/ready")
+def ready() -> dict[str, Any]:
+    """
+    Endpoint utilisé par Kubernetes readinessProbe.
+
+    Vérifie que l'API est prête à recevoir du trafic.
+    """
+    try:
+        model_name = get_current_model_name()
+        return {"status": "ready", "current_model": model_name}
+    except Exception as exc:
+        raise HTTPException(status_code=503, detail=str(exc))
 
 
 

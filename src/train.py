@@ -43,6 +43,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
+import mlflow
+import mlflow.sklearn
+from mlflow.tracking import MlflowClient
+
 # ---------------------------------------------------------------------------
 # Chemins et constantes globales
 # ---------------------------------------------------------------------------
@@ -53,6 +57,7 @@ MODELS_DIR: Final[Path] = ROOT / "models"
 REGISTRY_DIR: Final[Path] = ROOT / "registry"
 CURRENT_MODEL_PATH: Final[Path] = REGISTRY_DIR / "current_model.txt"
 METADATA_PATH: Final[Path] = REGISTRY_DIR / "metadata.json"
+MODEL_NAME: Final[str] = "churn_model"
 # ---------------------------------------------------------------------------
 
 # Fonctions pour la gestion des métadonnées
@@ -614,8 +619,37 @@ def main(version: str = "v1", seed: int = 42, gate_f1: float = 0.60) -> None:
         stable_model_path = MODELS_DIR / "model.joblib"
         joblib.dump(model_pipeline, stable_model_path)
 
+        # Associe le run à une expérience logique. Les exécutions seront regroupées sous ce nom dans l'interface MLflow.
+        mlflow.set_tracking_uri("http://127.0.0.1:5000")
+        mlflow.set_experiment("mlops-lab-01")
+
+        # Crée une exécution traçable correspondant à l'entraînement courant. Le nom du run porte ici la version logique passée au script.
+        with mlflow.start_run(run_name=f"train-{version}") as run:
+            run_id = run.info.run_id
+            # Enregistre le contexte de l'entraînement. Les paramètres sont essentiels pour comprendre et reproduire une exécution.
+            mlflow.log_param("version", version)
+            mlflow.log_param("seed", seed)
+            mlflow.log_param("gate_f1", gate_f1)
+            # Enregistre l'ensemble des métriques calculées par le script (F1, accuracy, etc.).
+            # Chaque métrique devient comparable entre runs dans l'UI.
+            mlflow.log_metrics(metrics)
+            # Ajoute des informations descriptives (métadonnées) destinées à faciliter la lecture humaine
+            # quel fichier de données a été utilisé, quel fichier modèle a été produit.
+            mlflow.set_tag("data_file", DATA_PATH.name)
+            mlflow.set_tag("model_file", model_filename)
+            # Attache le fichier modèle exporté (celui déjà généré via joblib.dump) au run MLflow. Il apparaît dans la section Artifacts du run.
+            mlflow.log_artifact(str(model_path), artifact_path="exported_models")
+            # Enregistre le pipeline entraîné comme un modèle MLflow et le publie dans le Model Registry sous un nom stable (churn_model).
+            # Chaque exécution crée une nouvelle version (v1, v2, …) associée au run.
+            mlflow.sklearn.log_model(
+                sk_model=model_pipeline,
+                artifact_path="model",
+                registered_model_name=MODEL_NAME,
+            )
+
         print(f"[DEPLOY] Modèle activé : {model_filename}")
         print(f"[DEPLOY] Alias stable : {stable_model_path}")
+        print(f"[MLflow] Run enregistré : {run_id} | Model Registry : {MODEL_NAME}")
     else:
         print("[DEPLOY] Refusé : F1 insuffisante ou baseline non battue.")
 
