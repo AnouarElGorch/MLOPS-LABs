@@ -1,11 +1,14 @@
 # MLOps Lab 01 — Churn Model
 
-Projet pédagogique couvrant Git, DVC, CI/CD et Docker autour d’une API FastAPI de prédiction de churn.
+Projet pédagogique complet couvrant Git, DVC, CI/CD, Docker, Kubernetes et MLflow autour d'une API FastAPI de prédiction de churn.
 
-## Aperçu des labs
-- Lab3 DVC : versionnement des données/pipelines ([README_LAB3_DVC.md](README_LAB3_DVC.md)).
-- Lab4 CI/CD : pipeline GitHub Actions (tests, build, déploiement simulé) ([README_LAB4_CICD.md](README_LAB4_CICD.md)).
-- Lab5 Docker : conteneurisation + Docker Compose ([README_LAB5_DOCKER.md](README_LAB5_DOCKER.md)).
+## 📚 Aperçu des labs
+
+- **Lab 3 - DVC** : Versionnement des données/pipelines ([README_LAB3_DVC.md](README_LAB3_DVC.md))
+- **Lab 4 - CI/CD** : Pipeline GitHub Actions (tests, build, déploiement simulé) ([README_LAB4_CICD.md](README_LAB4_CICD.md))
+- **Lab 5 - Docker** : Conteneurisation + Docker Compose ([README_LAB5_DOCKER.md](README_LAB5_DOCKER.md))
+- **Lab 6 - Kubernetes** : Déploiement sur K8s avec health checks, volumes persistants, monitoring ([README_LAB6_K8S.md](README_LAB6_K8S.md))
+- **Lab 7 - MLflow** : Gestion du cycle de vie des modèles, versioning, promotion, rollback ([README_LAB7_MLFLOW.md](README_LAB7_MLFLOW.md))
 
 ## Arborescence (extrait)
 ```
@@ -13,8 +16,10 @@ mlops-lab-01/
  ├─ data/             # données (raw/processed) gérées par DVC
  ├─ logs/             # logs API (predictions.log)
  ├─ models/           # modèles entraînés .joblib
- ├─ registry/         # current_model.txt, metadata.json
- ├─ src/              # api.py, train.py, evaluate.py, prepare_data.py, etc.
+ ├─ registry/         # current_model.txt, metadata.json, train_stats.json
+ ├─ mlflow/           # MLflow tracking (artifacts, mlflow.db)
+ ├─ k8s/              # Manifests Kubernetes (deployment, service, pvc, etc.)
+ ├─ src/              # api.py, train.py, promote.py, rollback.py, etc.
  ├─ .github/workflows/ # CI/CD
  ├─ Dockerfile
  ├─ docker-compose.yml
@@ -23,9 +28,11 @@ mlops-lab-01/
 ```
 
 ## Prérequis
-- Python 3.11 recommandé (aligné avec l’image Docker).
-- Docker + Docker Compose.
-- Git, DVC.
+- Python 3.12 recommandé (aligné avec l'image Docker)
+- Docker + Docker Compose
+- Git, DVC
+- Kubernetes (Minikube ou Docker Desktop)
+- MLflow
 
 ## Installation locale
 ```bash
@@ -91,3 +98,54 @@ docker compose down
 - [README_LAB3_DVC.md](README_LAB3_DVC.md)
 - [README_LAB4_CICD.md](README_LAB4_CICD.md)
 - [README_LAB5_DOCKER.md](README_LAB5_DOCKER.md)
+- [README_LAB6_K8S.md](README_LAB6_K8S.md) - **Kubernetes deployment**
+- [README_LAB7_MLFLOW.md](README_LAB7_MLFLOW.md) - **MLflow lifecycle management**
+
+## 🚀 Quick Start (MLflow + Kubernetes)
+
+### MLflow Tracking Server
+```bash
+# Terminal 1: MLflow server
+mlflow server --backend-store-uri sqlite:///mlflow/mlflow.db \
+              --default-artifact-root file:///mlflow/artifacts \
+              --host 127.0.0.1 --port 5000
+```
+
+### Train with MLflow
+```bash
+# Terminal 2: Train model
+python src/train.py
+# Automatically registers model in MLflow Registry as version v1, v2, etc.
+```
+
+### Promote to Production
+```bash
+python src/promote.py
+# Sets alias "production" to latest version
+```
+
+### Kubernetes Deployment
+```bash
+# Start Minikube
+minikube start
+
+# Apply manifests
+kubectl apply -f k8s/pvc.yaml
+kubectl apply -f k8s/configmap.yaml
+kubectl apply -f k8s/secret.yaml
+kubectl apply -f k8s/deployment.yaml
+kubectl apply -f k8s/service.yaml
+
+# Access API
+curl http://127.0.0.1:30080/health
+curl http://127.0.0.1:30080/docs
+```
+
+### Rollback
+```bash
+# Automatic rollback to previous version
+python src/rollback.py
+
+# Or explicit version
+python src/rollback.py 2
+```
