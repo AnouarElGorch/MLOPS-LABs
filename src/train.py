@@ -656,8 +656,6 @@ def main(version: str = "v1", seed: int = 42, gate_f1: float = 0.60) -> None:
             print(f"[WARNING] MLflow logging skipped (server unavailable): {e}")
             print(f"[DEPLOY] Modèle activé : {model_filename}")
             print(f"[DEPLOY] Alias stable : {stable_model_path}")
-        print(f"[DEPLOY] Alias stable : {stable_model_path}")
-        print(f"[MLflow] Run enregistré : {run_id} | Model Registry : {MODEL_NAME}")
     else:
         print("[DEPLOY] Refusé : F1 insuffisante ou baseline non battue.")
 
