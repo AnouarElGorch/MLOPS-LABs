@@ -33,7 +33,7 @@ jobs:
       - name: Installer dépendances
         run: |
           pip install -U pip
-          pip install dvc pandas numpy scikit-learn joblib
+          pip install dvc pandas numpy scikit-learn joblib mlflow
 
 
       - name: Restaurer cache DVC
