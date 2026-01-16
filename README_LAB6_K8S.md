@@ -99,13 +99,6 @@ minikube image ls | Select-String churn-api
 docker images | Select-String churn-api
 ```
 
-**Screenshot:** _[Ajouter une capture du build Docker]_
-
----
-
-## 🚀 Étape 2 : Configurer Kubernetes
-
----
 
 ## 🚀 Étape 2 : Configurer Kubernetes
 
@@ -178,7 +171,7 @@ kubectl get nodes
 # minikube   Ready    control-plane   5m    v1.28.3
 ```
 
-**Screenshot:** _[Ajouter une capture de `kubectl get nodes`]_
+
 
 ---
 
@@ -381,7 +374,7 @@ kubectl get pods -l app=churn-api
 kubectl describe deployment churn-api
 ```
 
-**Screenshot:** _[Ajouter une capture de `kubectl get pods`]_
+
 
 ---
 
@@ -450,7 +443,6 @@ kubectl port-forward svc/churn-api-service 8000:80
 # Puis: http://localhost:8000/docs
 ```
 
-**Screenshot:** _[Ajouter une capture de `kubectl get svc`]_
 
 ---
 
@@ -467,7 +459,7 @@ kubectl create configmap churn-config \
   --from-literal=LOG_LEVEL="INFO"
 ```
 
-**Screenshot:** _[Ajouter une capture de `kubectl describe configmap churn-config`]_
+
 
 ---
 
@@ -482,7 +474,6 @@ kubectl create secret generic churn-secret \
   --from-literal=MONITORING_TOKEN="your-token-here"
 ```
 
-**Screenshot:** _[Ajouter une capture de `kubectl describe secret churn-secret`]_
 
 ---
 
@@ -502,7 +493,7 @@ kubectl get pvc
 kubectl describe pvc churn-storage
 ```
 
-**Screenshot:** _[Ajouter une capture de `kubectl get pvc`]_
+
 
 ---
 
@@ -585,7 +576,6 @@ curl -X POST http://127.0.0.1:30080/predict \
   }'
 ```
 
-**Screenshot:** _[Ajouter une capture du POST /predict]_
 
 ---
 
@@ -605,7 +595,7 @@ $pod = "churn-api-7655fd649b-tg6fz"
 kubectl exec -it $pod -c api -- python src/prepare_data.py
 ```
 
-**Screenshot:** _[Ajouter une capture de l'exécution]_
+
 
 ---
 
@@ -632,7 +622,7 @@ kubectl exec -it $pod -c api -- python src/monitor_drift.py
 Résultat : aucun drift détecté.
 ```
 
-**Screenshot:** _[Ajouter une capture de l'exécution du drift monitor]_
+
 
 ---
 
@@ -651,7 +641,6 @@ kubectl get jobs
 kubectl logs job/churn-train
 ```
 
-**Screenshot:** _[Ajouter une capture de `kubectl get jobs`]_
 
 ---
 
@@ -691,7 +680,7 @@ spec:
                   subPath: logs
 ```
 
-**Screenshot:** _[Ajouter une capture de `kubectl get cronjobs`]_
+
 
 ---
 
@@ -701,7 +690,7 @@ spec:
 
 Restreint le trafic réseau entre pods.
 
-**Screenshot:** _[Ajouter une capture de `kubectl get networkpolicies`]_
+
 
 ---
 
@@ -729,7 +718,7 @@ kubectl get pods -l app=churn-api -o wide
 kubectl describe pod <pod-name>
 ```
 
-**Screenshot:** _[Ajouter une capture de `kubectl get pods`]_
+
 
 ---
 
@@ -746,7 +735,7 @@ kubectl port-forward svc/churn-api-service 8000:80
 http://127.0.0.1:30080/docs
 ```
 
-**Screenshot:** _[Ajouter une capture de Swagger UI]_
+
 
 ---
 
@@ -758,7 +747,7 @@ kubectl logs $pod -c api
 kubectl logs $pod -c api --tail=50 -f
 ```
 
-**Screenshot:** _[Ajouter une capture des logs]_
+
 
 ---
 

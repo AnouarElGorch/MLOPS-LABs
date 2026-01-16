@@ -242,18 +242,8 @@ python src/train.py
 # [MLflow] Run enregistré : 12ab34cd5e6f | Model Registry : churn_model v2
 ```
 
-### 📸 Screenshot: MLflow Tracking UI
 
-```
-À ajouter dans ce dossier:
-  • Screenshot de http://127.0.0.1:5000
-  • Montrant: Expérience "mlops-lab-01"
-  • Avec: Runs listés, métriques, paramètres visibles
-  • Zoom sur: "churn_model" avec v1, v2, v3
 
-Placeholder:
-[AJOUTER SCREENSHOT: mlflow-experiment-ui.png]
-```
 
 ---
 
@@ -328,16 +318,7 @@ curl http://127.0.0.1:5000/api/2.0/mlflow/registered-models/get?name=churn_model
    (cache invalidé)
 ```
 
-### 📸 Screenshot: Model Registry après Promotion
 
-```
-Placeholder:
-[AJOUTER SCREENSHOT: mlflow-model-registry-promoted.png]
-Montrer:
-  • churn_model avec v1, v2, v3
-  • v2 avec alias "production"
-  • Tags, métriques
-```
 
 ---
 
@@ -430,17 +411,7 @@ Activation explicite:
   # Résultat: ValueError + liste des versions valides
 ```
 
-### 📸 Screenshot: Rollback en Action
 
-```
-Placeholder:
-[AJOUTER SCREENSHOT: rollback-execution.png]
-Montrer:
-  1. Terminal avant: production -> v2
-  2. Exécution: python src/rollback.py
-  3. Terminal après: production -> v1
-  4. MLflow UI: alias changé
-```
 
 ---
 
@@ -548,23 +519,7 @@ WORKFLOW COMPLET:
       ✅ ZÉRO DOWNTIME!
 ```
 
-### 📸 Screenshot: API Swagger
 
-```
-Placeholder:
-[AJOUTER SCREENSHOT: api-swagger-health.png]
-Montrer:
-  • http://127.0.0.1:30080/docs
-  • Endpoint /health retournant version MLflow
-  • Endpoint /predict
-  • Try It Out avec sample data
-  
-[AJOUTER SCREENSHOT: api-predict-response.png]
-Montrer:
-  • Réponse JSON
-  • "model": "churn_model@production (v2)"
-  • Prédiction complète
-```
 
 ---
 
@@ -859,81 +814,7 @@ if current == versions[0]:
 
 ---
 
-## 📸 Screenshots à Ajouter
 
-### 1. MLflow Experiment UI
-```
-[AJOUTER SCREENSHOT: experiments-list.png]
-Contenu:
-  • http://127.0.0.1:5000
-  • "mlops-lab-01" experiment
-  • Runs: train-20260115_1, train-20260115_2, etc.
-  • Colonnes: Timestamp, Durée, Paramètres, Métriques
-```
-
-### 2. Model Registry UI
-```
-[AJOUTER SCREENSHOT: model-registry.png]
-Contenu:
-  • "churn_model" registered model
-  • Versions: v1, v2, v3
-  • Alias column: "production" → v2, "staging" → v3
-  • Registered at: timestamps
-```
-
-### 3. Model Version Details
-```
-[AJOUTER SCREENSHOT: model-version-details.png]
-Contenu:
-  • Version 2 page
-  • Source Run ID
-  • Model Signature
-  • Artifacts: model/model.pkl
-  • Alias: production
-```
-
-### 4. Terminal: Promotion
-```
-[AJOUTER SCREENSHOT: terminal-promote.png]
-Contenu:
-$ python src/promote.py
-[Output] Modèle activé : churn_model@production -> v2
-```
-
-### 5. Terminal: Rollback
-```
-[AJOUTER SCREENSHOT: terminal-rollback.png]
-Contenu:
-$ python src/rollback.py
-[Output] rollback => churn_model@production : v2 -> v1
-```
-
-### 6. API Health Check
-```
-[AJOUTER SCREENSHOT: curl-health.png]
-Contenu:
-$ curl http://127.0.0.1:30080/health
-{
-  "status": "ok",
-  "current_model": "churn_model@production (v2)"
-}
-```
-
-### 7. MLflow Artifacts
-```
-[AJOUTER SCREENSHOT: artifacts-tree.png]
-Contenu:
-  • Run: train-20260115_2
-  • Artifacts/
-    ├─ exported_models/
-    │  └─ churn_model_v1_20260115_101530.joblib
-    └─ model/
-       ├─ model.pkl
-       ├─ preprocessor.pkl
-       └─ MLmodel (YAML)
-```
-
----
 
 ## 🎓 Résumé: Cycle MLflow Complet
 
